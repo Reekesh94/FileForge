@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FileForge — All-in-One File Tools</title>
+  <meta name="description" content="Professional file processing tools for images, PDFs, and documents. Compress, convert, merge, and transform files instantly in your browser." />
+  <meta name="keywords" content="file tools, image compress, pdf merge, pdf split, convert image, file converter" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- External Libraries -->
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<nav class="navbar" id="navbar">
+  <a class="navbar-brand" onclick="navigate('home')">
+    <div class="logo-icon">⚡</div>
+    <span>FileForge</span>
+  </a>
+
+  <ul class="navbar-nav" id="navLinks">
+    <li><a onclick="navigate('home')" class="active" id="nav-home">Home</a></li>
+    <li><a onclick="navigate('images')" id="nav-images">🖼️ Images</a></li>
+    <li><a onclick="navigate('pdfs')" id="nav-pdfs">📄 PDFs</a></li>
+    <li><a onclick="navigate('docs')" id="nav-docs">📝 Documents</a></li>
+    <li><a onclick="navigate('about')" id="nav-about">About</a></li>
+    <li><a onclick="navigate('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+
+  <div class="navbar-actions">
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">🌙</button>
+    <button class="hamburger" onclick="openMobileNav()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  <a onclick="navigate('home'); closeMobileNav()">Home</a>
+  <a onclick="navigate('images'); closeMobileNav()">🖼️ Image Tools</a>
+  <a onclick="navigate('pdfs'); closeMobileNav()">📄 PDF Tools</a>
+  <a onclick="navigate('docs'); closeMobileNav()">📝 Document Tools</a>
+  <a onclick="navigate('about'); closeMobileNav()">About</a>
+  <a onclick="navigate('contact'); closeMobileNav()">Contact</a>
+</div>
+
+<!-- ============================================================
+     MAIN CONTENT
+============================================================ -->
+<main class="main-content">
+
+  <!-- ==================== HOME PAGE ==================== -->
+  <div class="page active" id="page-home">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-content">
+        <div class="hero-badge">✦ All-in-One File Processing</div>
+        <h1 class="hero-title">
+          Transform Any File<br>
+          <span class="gradient-text">Instantly & Freely</span>
+        </h1>
+        <p class="hero-subtitle">
+          Compress, convert, merge, and transform images, PDFs, and documents — all in your browser. Zero uploads. Zero servers. 100% private.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary btn-cyan" onclick="navigate('images')">🖼️ Image Tools</button>
+          <button class="btn-primary btn-orange" onclick="navigate('pdfs')">📄 PDF Tools</button>
+          <button class="btn-secondary" onclick="navigate('docs')">📝 Document Tools</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-value accent">15+</div><div class="stat-label">Tools</div></div>
+          <div class="stat"><div class="stat-value green">100%</div><div class="stat-label">Browser-Based</div></div>
+          <div class="stat"><div class="stat-value pink">0</div><div class="stat-label">Server Uploads</div></div>
+          <div class="stat"><div class="stat-value cyan">Free</div><div class="stat-label">Forever</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Cards -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-tag">✦ Tool Categories</div>
+        <h2 class="section-title">Everything You Need</h2>
+        <p class="section-subtitle">Professional-grade file tools right in your browser. No signup, no upload limits.</p>
+      </div>
+      <div class="categories-grid">
+
+        <div class="category-card cat-cyan" onclick="navigate('images')">
+          <div class="category-icon">🖼️</div>
+          <div class="category-arrow">↗</div>
+          <div class="category-label">Image Tools</div>
+          <div class="category-title">Image Processing</div>
+          <div class="category-desc">Compress, resize, convert, crop, and remove backgrounds from images with just a few clicks.</div>
+          <div class="category-tools">
+            <span class="tool-pill">Compress</span>
+            <span class="tool-pill">Resize</span>
+            <span class="tool-pill">Convert</span>
+            <span class="tool-pill">Crop</span>
+            <span class="tool-pill">BG Remove</span>
+          </div>
+        </div>
+
+        <div class="category-card cat-orange" onclick="navigate('pdfs')">
+          <div class="category-icon">📄</div>
+          <div class="category-arrow">↗</div>
+          <div class="category-label">PDF Tools</div>
+          <div class="category-title">PDF Processing</div>
+          <div class="category-desc">Merge, split, compress PDFs and convert between images and PDF format effortlessly.</div>
+          <div class="category-tools">
+            <span class="tool-pill">Image→PDF</span>
+            <span class="tool-pill">PDF→Images</span>
+            <span class="tool-pill">Merge</span>
+            <span class="tool-pill">Split</span>
+            <span class="tool-pill">Compress</span>
+          </div>
+        </div>
+
+        <div class="category-card cat-pink" onclick="navigate('docs')">
+          <div class="category-icon">📝</div>
+          <div class="category-arrow">↗</div>
+          <div class="category-label">Document Tools</div>
+          <div class="category-title">Word Documents</div>
+          <div class="category-desc">Create, analyze, merge Word-compatible documents and extract text from uploaded files.</div>
+          <div class="category-tools">
+            <span class="tool-pill">TXT→DOCX</span>
+            <span class="tool-pill">Merge Docs</span>
+            <span class="tool-pill">Extract Text</span>
+            <span class="tool-pill">File Info</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="section section-no-top">
+      <div class="section-header">
+        <div class="section-tag">✦ How It Works</div>
+        <h2 class="section-title">Simple. Fast. Private.</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📂</div>
+          <div class="feature-title">1. Upload Files</div>
+          <div class="feature-desc">Drag and drop or click to select. Multiple files supported for batch processing.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚙️</div>
+          <div class="feature-title">2. Choose Settings</div>
+          <div class="feature-desc">Select output format, quality, dimensions, or other options for your tool.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-title">3. Process Instantly</div>
+          <div class="feature-desc">Everything runs in your browser via Canvas API and PDF-lib. Zero server uploads.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⬇️</div>
+          <div class="feature-title">4. Download</div>
+          <div class="feature-desc">Download processed files instantly. Files never leave your device.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== IMAGE TOOLS PAGE ==================== -->
+  <div class="page" id="page-images">
+    <div class="tool-page">
+      <button class="back-btn" onclick="navigate('home')">← Back to Home</button>
+      <div class="tool-header">
+        <div class="tool-header-icon icon-cyan">🖼️</div>
+        <div class="tool-header-text">
+          <h1>Image Tools</h1>
+          <p>Compress, resize, convert, crop, and remove backgrounds from images</p>
+        </div>
+      </div>
+
+      <div class="sub-tool-tabs" id="img-tabs">
+        <button class="sub-tool-tab active" onclick="setImageTool('compress', this)">⚡ Compress</button>
+        <button class="sub-tool-tab" onclick="setImageTool('resize', this)">📐 Resize</button>
+        <button class="sub-tool-tab" onclick="setImageTool('convert', this)">🔄 Convert</button>
+        <button class="sub-tool-tab" onclick="setImageTool('crop', this)">✂️ Crop</button>
+        <button class="sub-tool-tab" onclick="setImageTool('bgreplace', this)">🪄 BG Remove</button>
+      </div>
+
+      <!-- COMPRESS -->
+      <div class="sub-panel active" id="img-compress">
+        <div class="drop-zone" id="img-compress-drop"
+          ondragover="handleDragOver(event,'img-compress-drop')"
+          ondragleave="handleDragLeave('img-compress-drop')"
+          ondrop="handleDrop(event,'img-compress-files','img-compress-drop',true)"
+          onclick="document.getElementById('img-compress-input').click()">
+          <div class="drop-icon">🗜️</div>
+          <div class="drop-title">Drop Images to Compress</div>
+          <div class="drop-subtitle">JPEG, PNG, WEBP, GIF — Multiple files OK</div>
+          <div class="drop-btn">📂 Choose Files</div>
+          <div class="drop-meta">Max 20MB per file</div>
+        </div>
+        <input type="file" id="img-compress-input" class="drop-input" accept="image/*" multiple onchange="addFiles('img-compress-files', this.files, true, true)">
+        <div class="file-list" id="img-compress-files"></div>
+        <div class="options-panel">
+          <div class="options-title">⚙️ Compression Settings</div>
+          <div class="options-grid">
+            <div class="option-group">
+              <div class="option-label">Quality (%)</div>
+              <input type="range" class="option-range" id="img-quality" min="10" max="100" value="75"
+                oninput="document.getElementById('img-quality-val').textContent = this.value">
+              <div class="range-labels"><span>10%</span><span id="img-quality-val">75</span>%<span>100%</span></div>
+            </div>
+            <div class="option-group">
+              <div class="option-label">Output Format</div>
+              <select class="option-select" id="img-compress-fmt">
+                <option value="same">Same as Input</option>
+                <option value="jpeg">JPEG</option>
+                <option value="png">PNG</option>
+                <option value="webp">WEBP</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button class="process-btn" onclick="processImageCompress()">⚡ Compress Images</button>
+        <div class="progress-bar-wrap hidden" id="img-compress-progress-wrap">
+          <div class="progress-bar" id="img-compress-progress"></div>
+        </div>
+        <div id="img-compress-result"></div>
+      </div>
+
+      <!-- RESIZE -->
+      <div class="sub-panel" id="img-resize">
+        <div class="drop-zone" id="img-resize-drop"
+          ondragover="handleDragOver(event,'img-resize-drop')"
+          ondragleave="handleDragLeave('img-resize-drop')"
+          ondrop="handleDrop(event,'img-resize-files','img-resize-drop',true)"
+          onclick="document.getElementById('img-resize-input').click()">
+          <div class="drop-icon">📐</div>
+          <div class="drop-title">Drop Images to Resize</div>
+          <div class="drop-subtitle">Set exact dimensions or percentage scale</div>
+          <div class="drop-btn">📂 Choose Files</div>
+        </div>
+        <input type="file" id="img-resize-input" class="drop-input" accept="image/*" multiple onchange="addFiles('img-resize-files', this.files, true, true)">
+        <div class="file-list" id="img-resize-files"></div>
+        <div class="options-panel">
+          <div class="options-title">⚙️ Resize Settings</div>
+          <div class="options-grid">
+            <div class="option-group">
+              <div class="option-label">Mode</div>
+              <select class="option-select" id="resize-mode" onchange="toggleResizeMode()">
+                <option value="dimensions">Exact Dimensions</option>
+                <option value="percentage">Percentage Scale</option>
+              </select>
+            </div>
+            <div class="option-group" id="resize-w-group">
+              <div class="option-label">Width (px)</div>
+              <input type="number" class="option-input" id="resize-w" placeholder="e.g. 800" min="1" max="8000">
+            </div>
+            <div class="option-group" id="resize-h-group">
+              <div class="option-label">Height (px)</div>
+              <input type="number" class="option-input" id="resize-h" placeholder="e.g. 600" min="1" max="8000">
+            </div>
+            <div class="option-group hidden" id="resize-pct-group">
+              <div class="option-label">Scale (%)</div>
+              <input type="number" class="option-input" id="resize-pct" value="50" min="1" max="500">
+            </div>
+            <div class="option-group">
+              <div class="option-label">Maintain Aspect Ratio</div>
+              <select class="option-select" id="resize-keep-ratio">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <div class="option-label">Output Format</div>
+              <select class="option-select" id="resize-fmt">
+                <option value="same">Same as Input</option>
+                <option value="jpeg">JPEG</option>
+                <option value="png">PNG</option>
+                <option value="webp">WEBP</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button class="process-btn" onclick="processImageResize()">📐 Resize Images</button>
+        <div id="img-resize-result"></div>
+      </div>
+
+      <!-- CONVERT -->
+      <div class="sub-panel" id="img-convert">
+        <div class="drop-zone" id="img-convert-drop"
+          ondragover="handleDragOver(event,'img-convert-drop')"
+          ondragleave="handleDragLeave('img-convert-drop')"
+          ondrop="handleDrop(event,'img-convert-files','img-convert-drop',true)"
+          onclick="document.getElementById('img-convert-input').click()">
+          <div class="drop-icon">🔄</div>
+          <div class="drop-title">Drop Images to Convert</div>
+          <div class="drop-subtitle">Convert between JPG, PNG, WEBP formats</div>
+          <div class="drop-btn">📂 Choose Files</div>
+        </div>
+        <input type="file" id="img-convert-input" class="drop-input" accept="image/*" multiple onchange="addFiles('img-convert-files', this.files, true, true)">
+        <div class="file-list" id="img-convert-files"></div>
+        <div class="options-panel">
+          <div class="options-title">⚙️ Conversion Settings</div>
+          <div class="options-grid">
+            <div class="option-group">
+              <div class="option-label">Output Format</div>
+              <select class="option-select" id="convert-to-fmt">
+                <option value="jpeg">JPEG</option>
+                <option value="png">PNG</option>
+                <option value="webp">WEBP</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <div class="option-label">Quality (%)</div>
+              <input type="range" class="option-range" id="convert-quality" min="10" max="100" value="90"
+                oninput="document.getElementById('convert-quality-val').textContent = this.value">
+              <div class="range-labels"><span>10%</span><span id="convert-quality-val">90</span>%<span>100%</span></div>
+            </div>
+          </div>
+        </div>
+        <button class="process-btn" onclick="processImageConvert()">🔄 Convert Images</button>
+        <div id="img-convert-result"></div>
+      </div>
+
+      <!-- CROP -->
+      <div class="sub-panel" id="img-crop">
+        <div class="drop-zone" id="img-crop-drop"
+          ondragover="handleDragOver(event,'img-crop-drop')"
+          ondragleave="handleDragLeave('img-crop-drop')"
+          ondrop="handleDrop(event,'img-crop-files','img-crop-drop',false)"
+          onclick="document.getElementById('img-crop-input').click()">
+          <div class="drop-icon">✂️</div>
+          <div class="drop-title">Drop Image to Crop</div>
+          <div class="drop-subtitle">Set crop coordinates or use a preset ratio</div>
+          <div class="drop-btn">📂 Choose File</div>
+        </div>
+        <input type="file" id="img-crop-input" class="drop-input" accept="image/*" onchange="addFiles('img-crop-files', this.files, false, true); showCropPreview(this.files[0])">
+        <div class="file-list" id="img-crop-files"></div>
+        <div id="img-crop-preview-area"></div>
+        <div class="options-panel">
+          <div class="options-title">✂️ Crop Settings</div>
+          <div class="options-grid">
+            <div class="option-group">
+              <div class="option-label">Preset Ratio</div>
+              <select class="option-select" id="crop-preset" onchange="applyCropPreset()">
+                <option value="">Custom</option>
+                <option value="square">Square (1:1)</option>
+                <option value="16:9">Widescreen (16:9)</option>
+                <option value="4:3">Standard (4:3)</option>
+                <option value="9:16">Portrait (9:16)</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <div class="option-label">X — Left (px)</div>
+              <input type="number" class="option-input" id="crop-x" value="0" min="0">
+            </div>
+            <div class="option-group">
+              <div class="option-label">Y — Top (px)</div>
+              <input type="number" class="option-input" id="crop-y" value="0" min="0">
+            </div>
+            <div class="option-group">
+              <div class="option-label">Width (px)</div>
+              <input type="number" class="option-input" id="crop-w" placeholder="Full width" min="1">
+            </div>
+            <div class="option-group">
+              <div class="option-label">Height (px)</div>
+              <input type="number" class="option-input" id="crop-h" placeholder="Full height" min="1">
+            </div>
+            <div class="option-group">
+              <div class="option-label">Output Format</div>
+              <select class="option-select" id="crop-fmt">
+                <option value="same">Same as Input</option>
+                <option value="jpeg">JPEG</option>
+                <option value="png">PNG</option>
+                <option value="webp">WEBP</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button class="process-btn" onclick="processImageCrop()">✂️ Crop Image</button>
+        <div id="img-crop-result"></div>
+      </div>
+
+      <!-- BG REMOVE -->
+      <div class="sub-panel" id="img-bgreplace">
+        <div class="drop-zone" id="img-bg-drop"
+          ondragover="handleDragOver(event,'img-bg-drop')"
+          ondragleave="handleDragLeave('img-bg-drop')"
+          ondrop="handleDrop(event,'img-bg-files','img-bg-drop',false)"
+          onclick="document.getElementById('img-bg-input').click()">
+          <div class="drop-icon">🪄</div>
+          <div class="drop-title">Drop Image for Background Removal</div>
+          <div class="drop-subtitle">Color-detection algorithm removes solid backgrounds</div>
+          <div class="drop-btn">📂 Choose File</div>
+        </div>
+        <input type="file" id="img-bg-input" class="drop-input" accept="image/*" onchange="addFiles('img-bg-files', this.files, false, true)">
+        <div class="file-list" id="img-bg-files"></div>
+        <div class="options-panel">
+          <div class="options-title">🎨 Background Options</div>
+          <div class="options-grid">
+            <div class="option-group">
+              <div class="option-label">Replace With</div>
+              <select class="option-select" id="bg-replace-type" onchange="toggleBgColor()">
+                <option value="transparent">Transparent (PNG)</option>
+                <option value="color">Solid Color</option>
+                <option value="blur">Blurred Original</option>
+              </select>
+            </div>
+            <div class="option-group hidden" id="bg-color-group">
+              <div class="option-label">Background Color</div>
+              <input type="color" class="option-input color-input" id="bg-color" value="#ffffff">
+            </div>
+            <div class="option-group">
+              <div class="option-label">Detection Sensitivity</div>
+              <input type="range" class="option-range" id="bg-threshold" min="10" max="80" value="30"
+                oninput="document.getElementById('bg-thresh-val').textContent = this.value">
+              <div class="range-labels"><span>Low</span><span id="bg-thresh-val">30</span><span>High</span></div>
+            </div>
+          </div>
+        </div>
+        <button class="process-btn" onclick="processBackgroundRemoval()">🪄 Remove Background</button>
+        <div id="img-bg-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PDF TOOLS PAGE ==================== -->
+  <div class="page" id="page-pdfs">
+    <div class="tool-page">
+      <button class="back-btn" onclick="navigate('home')">← Back to Home</button>
+      <div class="tool-header">
+        <div class="tool-header-icon icon-orange">📄</div>
+        <div class="tool-header-text">
+          <h1>PDF Tools</h1>
+          <p>Convert, merge, split, and compress PDF files — all in your browser</p>
+        </div>
+      </div>
+
+      <div class="sub-tool-tabs" id="pdf-tabs">
+        <button class="sub-tool-tab active" onclick="setPdfTool('img2pdf', this)">🖼️→📄 Image to PDF</button>
+        <button class="sub-tool-tab" onclick="setPdfTool('pdf2img', this)">📄→🖼️ PDF to Pages</button>
+        <button class="sub-tool-tab" onclick="setPdfTool('merge', this)">🔗 Merge</button>
+        <button class="sub-tool-tab" onclick="setPdfTool('split', this)">✂️ Split</button>
+        <button class="sub-tool-tab" onclick="setPdfTool('compress', this)">🗜️ Compress</button>
+      </div>
+
+      <!-- IMAGE TO PDF -->
+      <div class="sub-panel active" id="pdf-img2pdf">
+        <div class="drop-zone" id="pdf-img2pdf-drop"
+          ondragover="handleDragOver(event,'pdf-img2pdf-drop')"
+          ondragleave="handleDragLeave('pdf-img2pdf-drop')"
+          ondrop="handleDrop(event,'pdf-img2pdf-files','pdf-img2pdf-drop',true)"
+          onclick="document.getElementById('pdf-img2pdf-input').click()">
+          <div class="drop-icon">🖼️</div>
+          <div class="drop-title">Drop Images to Convert to PDF</div>
+          <div class="drop-subtitle">Each image becomes a page — JPG, PNG, WEBP supported</div>
+          <div class="drop-btn">📂 Choose Images</div>
+          <div class="drop-meta">Multiple images → multi-page PDF</div>
+        </div>
+        <input type="file" id="pdf-img2pdf-input" class="drop-input" accept="image/*" multiple onchange="addFiles('pdf-img2pdf-files', this.files, true, true)">
+        <div class="file-list" id="pdf-img2pdf-files"></div>
+        <div class="options-panel">
+          <div class="options-title">⚙️ PDF Settings</div>
+          <div class="options-grid">
+            <div class="option-group">
+              <div class="option-label">Page Size</div>
+              <select class="option-select" id="pdf-page-size">
+                <option value="A4">A4 (210×297mm)</option>
+                <option value="Letter">US Letter</option>
+                <option value="A3">A3 (297×420mm)</option>
+                <option value="fit">Fit to Image</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <div class="option-label">Orientation</div>
+              <select class="option-select" id="pdf-orientation">
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+                <option value="auto">Auto (per image)</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <div class="option-label">Page Margin (pt)</div>
+              <input type="number" class="option-input" id="pdf-margin" value="20" min="0" max="100">
+            </div>
+            <div class="option-group">
+              <div class="option-label">Image Fit</div>
+              <select class="option-select" id="pdf-img-fit">
+                <option value="contain">Contain (no crop)</option>
+                <option value="fill">Fill Page</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button class="process-btn btn-orange-bg" onclick="processImg2Pdf()">🖼️ Convert to PDF</button>
+        <div class="progress-bar-wrap hidden" id="img2pdf-progress-wrap">
+          <div class="progress-bar progress-orange" id="img2pdf-progress"></div>
+        </div>
+        <div id="img2pdf-result"></div>
+      </div>
+
+      <!-- PDF TO IMAGES -->
+      <div class="sub-panel" id="pdf-pdf2img">
+        <div class="drop-zone" id="pdf-pdf2img-drop"
+          ondragover="handleDragOver(event,'pdf-pdf2img-drop')"
+          ondragleave="handleDragLeave('pdf-pdf2img-drop')"
+          ondrop="handleDrop(event,'pdf-pdf2img-files','pdf-pdf2img-drop',false)"
+          onclick="document.getElementById('pdf-pdf2img-input').click()">
+          <div class="drop-icon">📄</div>
+          <div class="drop-title">Drop PDF to Extract Pages</div>
+          <div class="drop-subtitle">Each page becomes an individual PDF (browser-based)</div>
+          <div class="drop-btn">📂 Choose PDF</div>
+        </div>
+        <input type="file" id="pdf-pdf2img-input" class="drop-input" accept=".pdf" onchange="addFiles('pdf-pdf2img-files', this.files, false, false)">
+        <div class="file-list" id="pdf-pdf2img-files"></div>
+        <div class="options-panel">
+          <div class="options-title">⚙️ Export Settings</div>
+          <div class="options-grid">
+            <div class="option-group">
+              <div class="option-label">Pages (blank = all)</div>
+              <input type="text" class="option-input" id="pdf2img-pages" placeholder="e.g. 1,3,5-8">
+            </div>
+          </div>
+        </div>
+        <button class="process-btn btn-orange-bg" onclick="processPdf2Img()">📄 Extract Pages</button>
+        <div class="progress-bar-wrap hidden" id="pdf2img-progress-wrap">
+          <div class="progress-bar progress-orange" id="pdf2img-progress"></div>
+        </div>
+        <div id="pdf2img-result"></div>
+      </div>
+
+      <!-- MERGE -->
+      <div class="sub-panel" id="pdf-merge">
+        <div class="drop-zone" id="pdf-merge-drop"
+          ondragover="handleDragOver(event,'pdf-merge-drop')"
+          ondragleave="handleDragLeave('pdf-merge-drop')"
+          ondrop="handleDrop(event,'pdf-merge-files','pdf-merge-drop',true)"
+          onclick="document.getElementById('pdf-merge-input').click()">
+          <div class="drop-icon">🔗</div>
+          <div class="drop-title">Drop PDFs to Merge</div>
+          <div class="drop-subtitle">Files merged in the order listed below</div>
+          <div class="drop-btn">📂 Choose PDFs</div>
+          <div class="drop-meta">2 or more PDF files required</div>
+        </div>
+        <input type="file" id="pdf-merge-input" class="drop-input" accept=".pdf" multiple onchange="addFiles('pdf-merge-files', this.files, true, false)">
+        <div class="file-list" id="pdf-merge-files"></div>
+        <button class="process-btn btn-orange-bg" onclick="processMergePdf()">🔗 Merge PDFs</button>
+        <div class="progress-bar-wrap hidden" id="merge-progress-wrap">
+          <div class="progress-bar progress-orange" id="merge-progress"></div>
+        </div>
+        <div id="merge-result"></div>
+      </div>
+
+      <!-- SPLIT -->
+      <div class="sub-panel" id="pdf-split">
+        <div class="drop-zone" id="pdf-split-drop"
+          ondragover="handleDragOver(event,'pdf-split-drop')"
+          ondragleave="handleDragLeave('pdf-split-drop')"
+          ondrop="handleDrop(event,'pdf-split-files','pdf-split-drop',false)"
+          onclick="document.getElementById('pdf-split-input').click()">
+          <div class="drop-icon">✂️</div>
+          <div class="drop-title">Drop PDF to Split</div>
+          <div class="drop-subtitle">Split into individual pages or custom ranges</div>
+          <div class="drop-btn">📂 Choose PDF</div>
+        </div>
+        <input type="file" id="pdf-split-input" class="drop-input" accept=".pdf" onchange="addFiles('pdf-split-files', this.files, false, false)">
+        <div class="file-list" id="pdf-split-files"></div>
+        <div class="options-panel">
+          <div class="options-title">✂️ Split Options</div>
+          <div class="options-grid">
+            <div class="option-group">
+              <div class="option-label">Split Mode</div>
+              <select class="option-select" id="split-mode">
+                <option value="all">All Pages (one PDF per page)</option>
+                <option value="range">Custom Range</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <div class="option-label">Page Range (e.g. 1-3, 5, 7-9)</div>
+              <input type="text" class="option-input" id="split-range" placeholder="e.g. 1-3, 5, 7-9">
+            </div>
+          </div>
+        </div>
+        <button class="process-btn btn-orange-bg" onclick="processSplitPdf()">✂️ Split PDF</button>
+        <div class="progress-bar-wrap hidden" id="split-progress-wrap">
+          <div class="progress-bar progress-orange" id="split-progress"></div>
+        </div>
+        <div id="split-result"></div>
+      </div>
+
+      <!-- COMPRESS PDF -->
+      <div class="sub-panel" id="pdf-compress">
+        <div class="drop-zone" id="pdf-cmp-drop"
+          ondragover="handleDragOver(event,'pdf-cmp-drop')"
+          ondragleave="handleDragLeave('pdf-cmp-drop')"
+          ondrop="handleDrop(event,'pdf-cmp-files','pdf-cmp-drop',false)"
+          onclick="document.getElementById('pdf-cmp-input').click()">
+          <div class="drop-icon">🗜️</div>
+          <div class="drop-title">Drop PDF to Compress</div>
+          <div class="drop-subtitle">Reduce file size via object-stream optimization</div>
+          <div class="drop-btn">📂 Choose PDF</div>
+        </div>
+        <input type="file" id="pdf-cmp-input" class="drop-input" accept=".pdf" onchange="addFiles('pdf-cmp-files', this.files, false, false)">
+        <div class="file-list" id="pdf-cmp-files"></div>
+        <button class="process-btn btn-orange-bg" onclick="processCompressPdf()">🗜️ Compress PDF</button>
+        <div class="progress-bar-wrap hidden" id="pdf-cmp-progress-wrap">
+          <div class="progress-bar progress-orange" id="pdf-cmp-progress"></div>
+        </div>
+        <div id="pdf-cmp-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DOCUMENT TOOLS PAGE ==================== -->
+  <div class="page" id="page-docs">
+    <div class="tool-page">
+      <button class="back-btn" onclick="navigate('home')">← Back to Home</button>
+      <div class="tool-header">
+        <div class="tool-header-icon icon-pink">📝</div>
+        <div class="tool-header-text">
+          <h1>Document Tools</h1>
+          <p>Create, merge, and analyze Word documents and text files</p>
+        </div>
+      </div>
+
+      <div class="sub-tool-tabs" id="doc-tabs">
+        <button class="sub-tool-tab active" onclick="setDocTool('txt2docx', this)">📄 TXT → DOCX</button>
+        <button class="sub-tool-tab" onclick="setDocTool('merge', this)">🔗 Merge Docs</button>
+        <button class="sub-tool-tab" onclick="setDocTool('extract', this)">📋 Extract Text</button>
+        <button class="sub-tool-tab" onclick="setDocTool('info', this)">ℹ️ File Info</button>
+      </div>
+
+      <!-- TXT TO DOCX -->
+      <div class="sub-panel active" id="doc-txt2docx">
+        <div class="drop-zone" id="doc-txt-drop"
+          ondragover="handleDragOver(event,'doc-txt-drop')"
+          ondragleave="handleDragLeave('doc-txt-drop')"
+          ondrop="handleDrop(event,'doc-txt-files','doc-txt-drop',true)"
+          onclick="document.getElementById('doc-txt-input').click()">
+          <div class="drop-icon">📄</div>
+          <div class="drop-title">Drop Text Files to Convert to DOCX</div>
+          <div class="drop-subtitle">Converts .txt and .md files to formatted Word documents</div>
+          <div class="drop-btn">📂 Choose Files</div>
+          <div class="drop-meta">.txt / .md files supported</div>
+        </div>
+        <input type="file" id="doc-txt-input" class="drop-input" accept=".txt,.md,.csv" multiple onchange="addFiles('doc-txt-files', this.files, true, false)">
+        <div class="file-list" id="doc-txt-files"></div>
+        <div class="options-panel">
+          <div class="options-title">📝 Document Settings</div>
+          <div class="options-grid">
+            <div class="option-group">
+              <div class="option-label">Document Title</div>
+              <input type="text" class="option-input" id="docx-title" placeholder="My Document">
+            </div>
+            <div class="option-group">
+              <div class="option-label">Author</div>
+              <input type="text" class="option-input" id="docx-author" placeholder="Your Name">
+            </div>
+            <div class="option-group">
+              <div class="option-label">Font Family</div>
+              <select class="option-select" id="docx-font">
+                <option value="Calibri">Calibri</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Georgia">Georgia</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <div class="option-label">Font Size (pt)</div>
+              <input type="number" class="option-input" id="docx-fontsize" value="12" min="8" max="72">
+            </div>
+          </div>
+        </div>
+        <button class="process-btn btn-pink-bg" onclick="processTxt2Docx()">📄 Convert to DOCX</button>
+        <div id="doc-txt-result"></div>
+      </div>
+
+      <!-- MERGE DOCS -->
+      <div class="sub-panel" id="doc-merge">
+        <div class="drop-zone" id="doc-merge-drop"
+          ondragover="handleDragOver(event,'doc-merge-drop')"
+          ondragleave="handleDragLeave('doc-merge-drop')"
+          ondrop="handleDrop(event,'doc-merge-files','doc-merge-drop',true)"
+          onclick="document.getElementById('doc-merge-input').click()">
+          <div class="drop-icon">🔗</div>
+          <div class="drop-title">Drop Text / Markdown Files to Merge</div>
+          <div class="drop-subtitle">Combined in the order listed — outputs TXT, HTML, or DOCX</div>
+          <div class="drop-btn">📂 Choose Files</div>
+        </div>
+        <input type="file" id="doc-merge-input" class="drop-input" accept=".txt,.md" multiple onchange="addFiles('doc-merge-files', this.files, true, false)">
+        <div class="file-list" id="doc-merge-files"></div>
+        <div class="options-panel">
+          <div class="options-title">📎 Merge Settings</div>
+          <div class="options-grid">
+            <div class="option-group">
+              <div class="option-label">File Separator</div>
+              <select class="option-select" id="merge-separator">
+                <option value="pagebreak">Page Break</option>
+                <option value="line">Horizontal Rule</option>
+                <option value="nothing">Nothing</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <div class="option-label">Output Format</div>
+              <select class="option-select" id="merge-doc-fmt">
+                <option value="txt">Plain Text (.txt)</option>
+                <option value="html">HTML Document</option>
+                <option value="docx">Word Document (.docx)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button class="process-btn btn-pink-bg" onclick="processMergeDocs()">🔗 Merge Documents</button>
+        <div id="doc-merge-result"></div>
+      </div>
+
+      <!-- EXTRACT TEXT -->
+      <div class="sub-panel" id="doc-extract">
+        <div class="drop-zone" id="doc-extract-drop"
+          ondragover="handleDragOver(event,'doc-extract-drop')"
+          ondragleave="handleDragLeave('doc-extract-drop')"
+          ondrop="handleDrop(event,'doc-extract-files','doc-extract-drop',false)"
+          onclick="document.getElementById('doc-extract-input').click()">
+          <div class="drop-icon">📋</div>
+          <div class="drop-title">Drop Any Text File</div>
+          <div class="drop-subtitle">Extract and analyze text content — word count, stats, preview</div>
+          <div class="drop-btn">📂 Choose File</div>
+          <div class="drop-meta">.txt / .md / .csv / .html / .json / .js / .css</div>
+        </div>
+        <input type="file" id="doc-extract-input" class="drop-input" accept=".txt,.md,.csv,.html,.json,.js,.css,.xml" onchange="addFiles('doc-extract-files', this.files, false, false)">
+        <div class="file-list" id="doc-extract-files"></div>
+        <button class="process-btn btn-pink-bg" onclick="processExtractText()">📋 Extract & Analyze</button>
+        <div id="doc-extract-result"></div>
+      </div>
+
+      <!-- FILE INFO -->
+      <div class="sub-panel" id="doc-info">
+        <div class="drop-zone" id="doc-info-drop"
+          ondragover="handleDragOver(event,'doc-info-drop')"
+          ondragleave="handleDragLeave('doc-info-drop')"
+          ondrop="handleDrop(event,'doc-info-files','doc-info-drop',false)"
+          onclick="document.getElementById('doc-info-input').click()">
+          <div class="drop-icon">ℹ️</div>
+          <div class="drop-title">Drop Any File for Metadata</div>
+          <div class="drop-subtitle">Detailed file information and metadata analysis</div>
+          <div class="drop-btn">📂 Choose File</div>
+        </div>
+        <input type="file" id="doc-info-input" class="drop-input" onchange="addFiles('doc-info-files', this.files, false, false)">
+        <div class="file-list" id="doc-info-files"></div>
+        <button class="process-btn btn-pink-bg" onclick="processDocInfo()">ℹ️ Get File Info</button>
+        <div id="doc-info-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ABOUT PAGE ==================== -->
+  <div class="page" id="page-about">
+    <div class="about-page">
+      <div class="section-tag">✦ About FileForge</div>
+      <h1 class="about-title">Built for Everyone.<br><span class="gradient-text">Free &amp; Private.</span></h1>
+      <p>FileForge is a fully browser-based file processing suite. Every operation runs directly in your browser using JavaScript Canvas API and PDF-lib — your files never leave your device and are never uploaded to any server.</p>
+      <p>Whether you need to compress an image for a website, merge PDFs for a report, or convert between document formats — FileForge gives you professional-grade tools without subscriptions, logins, or upload limits.</p>
+      <p>Built with vanilla HTML, CSS, and JavaScript split into modular files for easy maintenance. Zero heavyweight frameworks. Leverages pdf-lib for PDF manipulation, the Canvas 2D API for image processing, and JSZip for bulk downloads.</p>
+      <div class="section-tag" style="margin-top: 40px">✦ Technology Stack</div>
+      <h2 class="tech-heading">What Powers FileForge</h2>
+      <div class="tech-grid">
+        <div class="tech-card"><div class="tech-icon">🌐</div>HTML5 Canvas API<br><small>Image processing</small></div>
+        <div class="tech-card"><div class="tech-icon">📄</div>PDF-lib<br><small>PDF manipulation</small></div>
+        <div class="tech-card"><div class="tech-icon">📦</div>JSZip<br><small>Bulk downloads</small></div>
+        <div class="tech-card"><div class="tech-icon">💾</div>FileSaver.js<br><small>File downloads</small></div>
+        <div class="tech-card"><div class="tech-icon">🎨</div>CSS Variables<br><small>Theming engine</small></div>
+        <div class="tech-card"><div class="tech-icon">⚡</div>Vanilla JS (3 modules)<br><small>Zero frameworks</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CONTACT PAGE ==================== -->
+  <div class="page" id="page-contact">
+    <div class="contact-page">
+      <div class="section-tag">✦ Contact</div>
+      <h1 class="about-title">Get in Touch</h1>
+      <p class="contact-sub">Have questions, feature requests, or found a bug? We'd love to hear from you.</p>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-input" id="contact-name" placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" id="contact-email" placeholder="john@example.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input type="text" class="form-input" id="contact-subject" placeholder="Feature request / Bug report / Question">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" id="contact-msg" placeholder="Tell us what's on your mind..."></textarea>
+        </div>
+        <button class="process-btn btn-pink-bg contact-submit" onclick="submitContact()">✉️ Send Message</button>
+        <div id="contact-result"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="footer">
+  <div class="footer-brand">⚡ FileForge</div>
+  <div class="footer-links">
+    <a onclick="navigate('home')">Home</a>
+    <a onclick="navigate('images')">Images</a>
+    <a onclick="navigate('pdfs')">PDFs</a>
+    <a onclick="navigate('docs')">Docs</a>
+    <a onclick="navigate('about')">About</a>
+    <a onclick="navigate('contact')">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 FileForge · 100% Browser-Based · Zero Server Uploads · Always Free</div>
+</footer>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toasts"></div>
+
+<!-- ============================================================
+     SCRIPTS — Order matters
+============================================================ -->
+<script src="js/app.js"></script>
+<script src="js/image-tools.js"></script>
+<script src="js/pdf-tools.js"></script>
+<script src="js/doc-tools.js"></script>
+
+</body>
+</html>
