@@ -186,6 +186,7 @@ function handleDrop(e, listId, zoneId, multiple) {
   }
 
   renderFileList(listId, showPreview);
+  _flashDropZoneSuccess(listId);
 
   // Special: crop preview
   if (listId === 'img-crop-files' && droppedFiles[0]) {
@@ -213,6 +214,7 @@ function addFiles(listId, fileList, multiple, showPreview) {
   }
 
   renderFileList(listId, showPreview);
+  _flashDropZoneSuccess(listId);
 }
 
 function _addFilesToState(listId, files) {
@@ -221,6 +223,20 @@ function _addFilesToState(listId, files) {
     const isDupe = App.files[listId].some(x => x.name === f.name && x.size === f.size);
     if (!isDupe) App.files[listId].push(f);
   });
+}
+
+/**
+ * Flash the drop zone with a "uploaded!" success state briefly.
+ * Works by finding the drop zone that owns this list.
+ */
+function _flashDropZoneSuccess(listId) {
+  // The drop zone id is the listId with "-files" replaced by "-drop"
+  const zoneId = listId.replace('-files', '-drop');
+  const zone   = document.getElementById(zoneId);
+  if (!zone) return;
+
+  zone.classList.add('upload-success');
+  setTimeout(() => zone.classList.remove('upload-success'), 1800);
 }
 
 function removeFile(listId, index) {
@@ -242,6 +258,22 @@ function renderFileList(listId, showPreview = false) {
 
   const files = App.files[listId] || [];
   container.innerHTML = '';
+
+  // ── Upload summary banner ──────────────────────────────────
+  if (files.length > 0) {
+    const totalSize = files.reduce((s, f) => s + f.size, 0);
+    const banner = document.createElement('div');
+    banner.className = 'upload-banner';
+    banner.innerHTML = `
+      <span class="upload-banner-icon">✅</span>
+      <span class="upload-banner-text">
+        <strong>${files.length} file${files.length > 1 ? 's' : ''} ready</strong>
+        <span class="upload-banner-meta">${formatSize(totalSize)} total</span>
+      </span>
+      <button class="upload-clear-btn" onclick="clearFiles('${listId}')" title="Remove all files">✕ Clear all</button>
+    `;
+    container.appendChild(banner);
+  }
 
   files.forEach((f, i) => {
     const item = document.createElement('div');
@@ -269,6 +301,16 @@ function renderFileList(listId, showPreview = false) {
 
     container.appendChild(item);
   });
+}
+
+function clearFiles(listId) {
+  App.files[listId] = [];
+  const showPreview = listId.includes('img') || listId.includes('bg');
+  renderFileList(listId, showPreview);
+  if (listId === 'img-crop-files') {
+    const area = document.getElementById('img-crop-preview-area');
+    if (area) area.innerHTML = '';
+  }
 }
 
 /* ================================================================

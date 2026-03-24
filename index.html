@@ -255,8 +255,9 @@
           <div class="drop-subtitle">Set exact dimensions or percentage scale</div>
           <div class="drop-btn">📂 Choose Files</div>
         </div>
-        <input type="file" id="img-resize-input" class="drop-input" accept="image/*" multiple onchange="addFiles('img-resize-files', this.files, true, true)">
+        <input type="file" id="img-resize-input" class="drop-input" accept="image/*" multiple onchange="addFiles('img-resize-files', this.files, true, true); showResizePreview(this.files[0])">
         <div class="file-list" id="img-resize-files"></div>
+        <div id="img-resize-preview-area"></div>
         <div class="options-panel">
           <div class="options-title">⚙️ Resize Settings</div>
           <div class="options-grid">
@@ -269,19 +270,19 @@
             </div>
             <div class="option-group" id="resize-w-group">
               <div class="option-label">Width (px)</div>
-              <input type="number" class="option-input" id="resize-w" placeholder="e.g. 800" min="1" max="8000">
+              <input type="number" class="option-input" id="resize-w" placeholder="e.g. 800" min="1" max="8000" oninput="_updateResizeDims()">
             </div>
             <div class="option-group" id="resize-h-group">
               <div class="option-label">Height (px)</div>
-              <input type="number" class="option-input" id="resize-h" placeholder="e.g. 600" min="1" max="8000">
+              <input type="number" class="option-input" id="resize-h" placeholder="e.g. 600" min="1" max="8000" oninput="_updateResizeDims()">
             </div>
             <div class="option-group hidden" id="resize-pct-group">
               <div class="option-label">Scale (%)</div>
-              <input type="number" class="option-input" id="resize-pct" value="50" min="1" max="500">
+              <input type="number" class="option-input" id="resize-pct" value="50" min="1" max="500" oninput="_updateResizeDims()">
             </div>
             <div class="option-group">
               <div class="option-label">Maintain Aspect Ratio</div>
-              <select class="option-select" id="resize-keep-ratio">
+              <select class="option-select" id="resize-keep-ratio" onchange="_updateResizeDims()">
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
               </select>
@@ -354,34 +355,8 @@
         <div class="file-list" id="img-crop-files"></div>
         <div id="img-crop-preview-area"></div>
         <div class="options-panel">
-          <div class="options-title">✂️ Crop Settings</div>
-          <div class="options-grid">
-            <div class="option-group">
-              <div class="option-label">Preset Ratio</div>
-              <select class="option-select" id="crop-preset" onchange="applyCropPreset()">
-                <option value="">Custom</option>
-                <option value="square">Square (1:1)</option>
-                <option value="16:9">Widescreen (16:9)</option>
-                <option value="4:3">Standard (4:3)</option>
-                <option value="9:16">Portrait (9:16)</option>
-              </select>
-            </div>
-            <div class="option-group">
-              <div class="option-label">X — Left (px)</div>
-              <input type="number" class="option-input" id="crop-x" value="0" min="0">
-            </div>
-            <div class="option-group">
-              <div class="option-label">Y — Top (px)</div>
-              <input type="number" class="option-input" id="crop-y" value="0" min="0">
-            </div>
-            <div class="option-group">
-              <div class="option-label">Width (px)</div>
-              <input type="number" class="option-input" id="crop-w" placeholder="Full width" min="1">
-            </div>
-            <div class="option-group">
-              <div class="option-label">Height (px)</div>
-              <input type="number" class="option-input" id="crop-h" placeholder="Full height" min="1">
-            </div>
+          <div class="options-title">✂️ Output Settings</div>
+          <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
             <div class="option-group">
               <div class="option-label">Output Format</div>
               <select class="option-select" id="crop-fmt">
@@ -508,7 +483,7 @@
             </div>
           </div>
         </div>
-        <button class="process-btn btn-orange-bg" onclick="processImg2Pdf()">🖼️ Convert to PDF</button>
+        <button class="process-btn btn-orange-bg" onclick="processImg2Pdf()">🖼 Convert to PDF</button>
         <div class="progress-bar-wrap hidden" id="img2pdf-progress-wrap">
           <div class="progress-bar progress-orange" id="img2pdf-progress"></div>
         </div>

@@ -1610,3 +1610,235 @@ img { max-width: 100%; display: block; }
 
   .tech-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ================================================================
+   27. UPLOAD FEEDBACK — success flash + banner
+================================================================ */
+
+/* Drop zone success flash */
+.drop-zone.upload-success {
+  border-color: var(--green) !important;
+  background: rgba(34, 214, 138, 0.05) !important;
+  animation: successPulse 0.4s ease;
+}
+
+@keyframes successPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(34, 214, 138, 0.5); }
+  70%  { box-shadow: 0 0 0 12px rgba(34, 214, 138, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 214, 138, 0); }
+}
+
+/* Upload banner — shown above file list */
+.upload-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(34, 214, 138, 0.07);
+  border: 1px solid rgba(34, 214, 138, 0.28);
+  border-radius: var(--radius-md);
+  padding: 11px 16px;
+  margin-bottom: 6px;
+  animation: slideIn 0.25s ease;
+}
+
+.upload-banner-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.upload-banner-text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+}
+
+.upload-banner-text strong {
+  color: var(--green);
+}
+
+.upload-banner-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.upload-clear-btn {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: var(--t-fast);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.upload-clear-btn:hover {
+  color: var(--red);
+  border-color: rgba(255, 77, 90, 0.4);
+  background: var(--red-dim);
+}
+
+/* ================================================================
+   28. INTERACTIVE CANVAS CROP
+================================================================ */
+.crop-canvas-wrap {
+  margin-top: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.crop-canvas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.crop-canvas-label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.crop-canvas-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.crop-preset-btn {
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--t-fast);
+  letter-spacing: 0.03em;
+}
+
+.crop-preset-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(91, 95, 239, 0.08);
+}
+
+.crop-preset-clear {
+  color: var(--red);
+  border-color: rgba(255, 77, 90, 0.3);
+  background: var(--red-dim);
+}
+
+.crop-preset-clear:hover {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
+
+.crop-canvas-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: #000;
+  min-height: 100px;
+}
+
+.crop-canvas {
+  display: block;
+  cursor: crosshair;
+  max-width: 100%;
+  border-radius: 4px;
+  /* Crisp rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.crop-info-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 18px;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+}
+
+.crop-sep { color: var(--border); }
+
+/* ================================================================
+   29. RESIZE LIVE PREVIEW
+================================================================ */
+.resize-preview-wrap {
+  margin-top: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.resize-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.resize-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.resize-original-dims {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.resize-preview-img {
+  display: block;
+  max-width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+  margin: 0 auto;
+  padding: 12px;
+  background: var(--bg-input);
+}
+
+.resize-output-dims {
+  padding: 12px 18px;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.resize-output-dims strong {
+  font-weight: 700;
+  transition: color 0.2s;
+}
